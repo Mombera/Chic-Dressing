@@ -65,7 +65,22 @@ $slider_data .= '}';
 
 	<div class="slider-item">
 
-		<div class="slider-item-bg" style="background-image:url( <?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'full' )[0]; ?>);"></div>
+	<div class="slider-item-bg">
+		<picture>
+			<!-- Source pour les écrans avec une largeur maximale de 768px (par exemple, les téléphones) -->
+			<source media="(max-width: 768px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'medium' )[0]; ?>">
+
+			<!-- Source pour les écrans avec une largeur maximale de 1024px (tablettes) -->
+			<source media="(max-width: 1024px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'large' )[0]; ?>">
+
+			<!-- Source pour les écrans plus larges (ordinateurs de bureau et autres grands écrans) -->
+			<source media="(min-width: 1025px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'full' )[0]; ?>">
+
+			<!-- Image de secours au cas où le <picture> ne serait pas supporté -->
+			<img src="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'large' )[0]; ?>" alt="Image" />
+		</picture>
+	</div>
+
 
 		<div class="cv-container image-overlay">
 			<div class="cv-outer">
