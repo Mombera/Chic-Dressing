@@ -5,7 +5,7 @@ Description:	 chicdressing is a child theme of Ashe, created by ChildTheme-Gener
 Author:			 Chic Dressing
 Author URI:		 http://childtheme-generator.com/
 Template:		 ashe
-Version:		 1.0.0
+Version:		 1.0.001
 Text Domain:	 chicdressing
 */
 
@@ -14,6 +14,127 @@ Text Domain:	 chicdressing
     Add your custom styles here
 */
 
+
+/***** FONTS ***/
+/* Open Sans Regular */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Open Sans Bold */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Open Sans Light */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Light.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+}
+
+/* Open Sans Italic */
+@font-face {
+    font-family: 'Open Sans';
+    src: url('fonts/OpenSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Display Fair Regular */
+@font-face {
+    font-family: 'Display Fair';
+    src: url('fonts/DisplayFair-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Display Fair Bold */
+@font-face {
+    font-family: 'Display Fair';
+    src: url('fonts/DisplayFair-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Display Fair Light */
+@font-face {
+    font-family: 'Display Fair';
+    src: url('fonts/DisplayFair-Light.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+}
+
+/* Display Fair Italic */
+@font-face {
+    font-family: 'Display Fair';
+    src: url('fonts/DisplayFair-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+/* Kalam Regular */
+@font-face {
+    font-family: 'Kalam';
+    src: url('fonts/Kalam-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Kalam Bold */
+@font-face {
+    font-family: 'Kalam';
+    src: url('fonts/Kalam-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Kalam Light */
+@font-face {
+    font-family: 'Kalam';
+    src: url('fonts/Kalam-Light.ttf') format('truetype');
+    font-weight: 300; /* Light */
+    font-style: normal;
+}
+
+/* Kalam Italic */
+@font-face {
+    font-family: 'Kalam';
+    src: url('fonts/Kalam-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+
+.button-container{
+    display: flex;
+    justify-content: center;
+}
+button.read-more{
+    display: inline-block;
+    padding: 0 25px;
+    border: 1px solid;
+    font-size: 13px;
+    line-height: 40px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ca9b52;
+}
+
+.entry-header picture{
+    width: 200px;
+    height: 200px;
+}
 
 body .page-content, .page-content select, .page-content input, .page-content textarea, .page-content .post-author a, .page-content .ashe-widget a, .page-content .comment-author {
     color: #a5a5a5;

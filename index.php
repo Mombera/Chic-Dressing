@@ -7,9 +7,9 @@ if ( is_home() ) {
 	// Featured Slider, Carousel
 	if ( ashe_options( 'featured_slider_label' ) === true && ashe_options( 'featured_slider_location' ) !== 'front' ) {
 		if ( ashe_options( 'featured_slider_source' ) === 'posts' ) {
-			get_template_part( 'templates/header/featured', 'slider' );
-		} else {
 			get_template_part( 'templates/header/featured', 'slider-custom' );
+		} else {
+			get_template_part( 'templates/header/featured', 'slider' );
 		}
 	}
 
@@ -29,9 +29,32 @@ if ( is_home() ) {
 	</div>
 	<!-- on inclut la Google Maps de la Fashion Week -->
 	<div id="chic-fashionweek-map" class="boxed-wrapper clear-fix" style="margin-top:30px">
-		<h1 class="chic-title">La FashionMap - été 2022 </h1>
-		<iframe src="https://www.google.com/maps/d/embed?mid=1SU-W19k76UkTXASeT7PnGAyDYCY&hl=en_US&ehbc=2E312F" width="100%" height="480"></iframe>';
+    <h1 class="chic-title">La FashionMap - été 2022 </h1>
+
+    <!-- Bouton pour charger la carte -->
+	<div class="button-container">
+    	<button class="read-more" onclick="loadMap()">Charger la carte</button>
 	</div>
+
+    <!-- Div pour l'iframe, cachée au départ -->
+    <div id="map-container" style="display:none;">
+        <iframe id="fashion-map" src="" width="100%" height="480" style="border:0;"></iframe>
+    </div>
+</div>
+
+<script>
+    function loadMap() {
+        // Définir l'URL de l'iframe avec le lien de la carte
+        var mapUrl = "https://www.google.com/maps/d/embed?mid=1SU-W19k76UkTXASeT7PnGAyDYCY&hl=en_US&ehbc=2E312F";
+
+        // Affecter l'URL à l'iframe
+        document.getElementById('fashion-map').src = mapUrl;
+
+        // Afficher la div contenant l'iframe
+        document.getElementById('map-container').style.display = 'block';
+    }
+</script>
+
 	<?php
 
 }

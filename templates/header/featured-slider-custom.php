@@ -27,96 +27,95 @@ $slider_data .= '}';
 <div id="featured-slider" class="<?php echo esc_attr(ashe_options( 'general_slider_width' )) === 'boxed' ? 'boxed-wrapper': ''; ?>" data-slick="<?php echo esc_attr( $slider_data ); ?>">
 	
 	<?php
-	
-	$slider_repeater_encoded = get_theme_mod( 'featured_slider_repeater', json_encode( array(
-		array(
-			'image_url' => '',
-			'title' => 'Slide 1 Title',
-			'text' => 'Slide 1 Description. Some lorem ipsum dolor sit amet text',
-			'link' => '',
-			'btn_text' => 'Button 1',
-	         'checkbox' => '0',
-			'id' => 'customizer_repeater_56d7ea7f40a1'
-		),
-		array(
-			'image_url' => '',
-			'title' => 'Slide 2 Title',
-			'text' => 'Slide 2 Description. Some lorem ipsum dolor sit amet text',
-			'link' => '',
-			'btn_text' => 'Button 2',
-	         'checkbox' => '0',
-			'id' => 'customizer_repeater_56d7ea7f40a2'
-		),
-		array(
-			'image_url' => '',
-			'title' => 'Slide 3 Title',
-			'text' => 'Slide 3 Description. Some lorem ipsum dolor sit amet text',
-			'link' => '',
-			'btn_text' => 'Button 3',
-	         'checkbox' => '0',
-			'id' => 'customizer_repeater_56d7ea7f40a3'
-		),
-	) ) );
 
-	$slider_repeater = json_decode( $slider_repeater_encoded );
+	$meta_query = (true == ashe_options( 'featured_slider_exc_images' )) ? [ [ 'key' => '_thumbnail_id', 'compare' 	=> 'EXISTS' ] ] : [];
+
+	// Query Args
+	$args = array(
+		'post_type'		      	=> array( 'post' ),
+	 	'orderby'		      	=> 'rand',
+		'order'			      	=> 'DESC',
+		'posts_per_page'      	=> ashe_options( 'featured_slider_amount' ),
+		'ignore_sticky_posts'	=> 1,
+		'meta_query' 			=> $meta_query,	
+	);
+
+	if ( ashe_options( 'featured_slider_display' ) === 'category' ) {
+		$args['cat'] = ashe_options( 'featured_slider_category' );
+	}
+
+	if ( ashe_is_preview() ) {
+		array_pop($args);
+		$preview_count  = 0;
+		$preview_images = array(
+			get_template_directory_uri() .'/assets/images/image_5.jpg',
+			get_template_directory_uri() .'/assets/images/image_3.jpg',
+			get_template_directory_uri() .'/assets/images/image_6.jpg'
+		);
+	}
 	
+
+	$sliderQuery = new WP_Query();
+	$sliderQuery->query( $args );
+
 	// Loop Start
-	foreach( $slider_repeater as $repeater_item ) : ?>
+	if ( $sliderQuery->have_posts() ) :
+
+	while ( $sliderQuery->have_posts() ) : $sliderQuery->the_post();
+
+		if ( ashe_is_preview() ) {
+			$featured_image = $preview_images[$preview_count];
+			$preview_count++;
+		} else {
+			// Get the image URLs for different sizes
+			$large_image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+			$medium_image_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
+			$small_image_url = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' );
+		}
+		
+	?>
 
 	<div class="slider-item">
 
-	<div class="slider-item-bg">
-		<picture>
-			<!-- Source pour les écrans avec une largeur maximale de 768px (par exemple, les téléphones) -->
-			<source media="(max-width: 768px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'medium' )[0]; ?>">
-
-			<!-- Source pour les écrans avec une largeur maximale de 1024px (tablettes) -->
-			<source media="(max-width: 1024px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'large' )[0]; ?>">
-
-			<!-- Source pour les écrans plus larges (ordinateurs de bureau et autres grands écrans) -->
-			<source media="(min-width: 1025px)" srcset="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'full' )[0]; ?>">
-
-			<!-- Image de secours au cas où le <picture> ne serait pas supporté -->
-			<img src="<?php echo wp_get_attachment_image_src( $repeater_item->image_url, 'large' )[0]; ?>" alt="Image" />
-		</picture>
+		<div class="slider-item-bg">
+		<!-- Responsive Image with srcset for different screen sizes -->
+		<img 
+		    src="<?php echo esc_url($small_image_url); ?>" 
+		    srcset="<?php echo esc_url($small_image_url); ?> 480w, 
+		            <?php echo esc_url($medium_image_url); ?> 768w, 
+		            <?php echo esc_url($large_image_url); ?> 1200w" 
+		    sizes="(max-width: 480px) 480px, 
+		           (max-width: 768px) 768px, 
+		           1200px" 
+		    alt="<?php the_title_attribute(); ?>" 
+		    class="slider-image lazyload" 
+		    loading="lazy">
 	</div>
-
-
 		<div class="cv-container image-overlay">
 			<div class="cv-outer">
 				<div class="cv-inner">
 					<div class="slider-info">
-			
-						<?php
 
-						$target = '1' === $repeater_item->checkbox ? '_blank' : '_self';
+						<?php $category_list = get_the_category_list( ', ' ); ?>		
 
-						if ( $repeater_item->btn_text === '' && $repeater_item->link !== '' ) {
-							echo '<a class="slider-image-link" href="'. esc_url( $repeater_item->link ) .'" target="'. $target .'"></a>';
-						}
-
-						?>
-
-						<?php if( $repeater_item->title !== '' ) : ?>
-							<?php if ( $repeater_item->link !== '' ) : ?>
-								<h2 class="slider-title">
-									<a href="<?php echo esc_url( $repeater_item->link ); ?>"><?php echo $repeater_item->title; ?></a>	
-								</h2>
-							<?php else: ?>
-								<h2 class="slider-title"><?php echo $repeater_item->title; ?></h2>
-							<?php endif; ?>
+						<?php if ( $category_list ) : ?>
+						<div class="slider-categories">
+							<?php echo '' . $category_list; ?>
+						</div> 
 						<?php endif; ?>
-
-						<?php if ( $repeater_item->text !== '' ): ?>							
-						<div class="slider-content"><?php echo $repeater_item->text; ?></div>
-						<?php endif; ?>
-
-						<?php if ( $repeater_item->btn_text !== '' ) : ?>
+						
+						<h2 class="slider-title"> 
+							<a href="<?php echo esc_url( get_permalink() ); ?>"><?php the_title(); ?></a>	
+						</h2>
+						
+						<div class="slider-content"><?php ashe_excerpt( 30 ); ?></div>
+						
 						<div class="slider-read-more">
-							<a href="<?php echo esc_url( $repeater_item->link ); ?>" target="<?php echo $target; ?>"><?php echo $repeater_item->btn_text; ?></a>
+							<a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'read more','ashe' ); ?></a>
 						</div>
-						<?php endif; ?>
-
+						
+						<div class="slider-date"><?php the_time( get_option('date_format') ); ?></div>
+						
 					</div>
 				</div>
 			</div>
@@ -124,8 +123,13 @@ $slider_data .= '}';
 
 	</div>
 
-	<?php endforeach; // Loop end ?>
-	
+	<?php
+
+	endwhile; // Loop end
+	endif;
+
+	?>
+
 </div><!-- #featured-slider -->
 
 </div><!-- .featured-slider-area -->
