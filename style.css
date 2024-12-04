@@ -113,7 +113,14 @@ Text Domain:	 chicdressing
 }
 
 
+/*** modifications ***/
 
+body .page-content p, .page-content .post-meta .post-date, li .rpwwt-post-categories{
+    color: #333333;
+}
+.slider-info .slider-content p{
+    color: #fff;
+}
 .button-container{
     display: flex;
     justify-content: center;
@@ -128,7 +135,7 @@ button.read-more{
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
-    color: #ca9b52;
+    color: #333;
 }
 
 .entry-header picture{
