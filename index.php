@@ -21,7 +21,7 @@ if ( is_home() ) {
 	// On ajoute les derniers produits
 	?>
 	<div id="chic-products"  class="boxed-wrapper clear-fix">
-		<h1 class="chic-title">Dernières pièces </h1>
+		<h1 class="chic-title">Dernières pièces</h1>
 		<?php
 		echo do_shortcode('[products orderby="date" columns="3" order="ASC"]');
 		?>
@@ -29,7 +29,7 @@ if ( is_home() ) {
 	</div>
 	<!-- on inclut la Google Maps de la Fashion Week -->
 	<div id="chic-fashionweek-map" class="boxed-wrapper clear-fix" style="margin-top:30px">
-    <h1 class="chic-title">La FashionMap - été 2022 </h1>
+    <h2 class="chic-title">La FashionMap - été 2022 </h2>
 
     <!-- Bouton pour charger la carte -->
 	<div class="button-container">
@@ -38,7 +38,7 @@ if ( is_home() ) {
 
     <!-- Div pour l'iframe, cachée au départ -->
     <div id="map-container" style="display:none;">
-        <iframe id="fashion-map" src="" width="100%" height="480" style="border:0;"></iframe>
+        <iframe id="fashion-map" title="fashion-map" src="" width="100%" height="480" style="border:0;"></iframe>
     </div>
 </div>
 

@@ -36,17 +36,17 @@ function generate_webp_image($image_path) {
 
 // Fonction pour générer le CSS dynamique dans le thème enfant
 function ashe_dynamic_css_child() {
-    // Exemple d'URL d'image d'en-tête au format .webp
+    // Exemple d'URL d'image d'en-tête récupérée depuis les options de WordPress
     $header_image = get_header_image();
 
-    // Modifier l'URL pour utiliser le format .webp si une image est définie
+    // Si une image d'en-tête est définie, on la modifie pour le format .webp
     if ($header_image) {
-        $background_image = preg_replace('/\.[^\.]+$/', '.webp', $header_image);
-        // Image de remplacement si aucune image d'en-tête n'est définie
-        $mobile_image = preg_replace('/\.[^\.]+$/', '-500x330.jpg.webp', $header_image);  // Image pour téléphone (300x200)
+        $background_image = preg_replace('/\.[^\.]+$/', '.webp', $header_image);  // Convertir l'extension en .webp
+        $mobile_image = preg_replace('/\.[^\.]+$/', '-500x330.jpg.webp', $header_image); // Image de remplacement pour mobile
     } else {
-        $background_image = get_template_directory_uri() . '/images/default-image.webp'; // Image de remplacement par défaut
-        $mobile_image = get_template_directory_uri() . '/images/default-image-300x200.webp'; // Image de remplacement par défaut pour téléphone
+        // Image de remplacement par défaut si aucune image d'en-tête n'est définie
+        $background_image = get_template_directory_uri() . '/images/default-image.webp';
+        $mobile_image = get_template_directory_uri() . '/images/default-image-500x330.jpg.webp';
     }
 
     // Générer le CSS dynamique pour l'en-tête
@@ -67,5 +67,8 @@ function ashe_dynamic_css_child() {
     ";
 
     // Injecter le CSS dynamique dans le <head> de la page avec un ID unique
-    echo '<style id="ashe_dynamic_css_child">' . $css . '</style>';
+    echo '<style id="ashe_dynamic_css_child_' . rand() . '">' . $css . '</style>';
+
 }
+add_action('wp_head', 'ashe_dynamic_css_child', 20);
+    

@@ -69,8 +69,8 @@ $slider_data .= '}';
 		} else {
 			// Get the image URLs for different sizes
 			$large_image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
-			$medium_image_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
-			$small_image_url = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' );
+			$medium_image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
+			$small_image_url = get_the_post_thumbnail_url( get_the_ID(), 'medium' );
 		}
 		
 	?>
@@ -78,19 +78,18 @@ $slider_data .= '}';
 	<div class="slider-item">
 
 		<div class="slider-item-bg">
-		<!-- Responsive Image with srcset for different screen sizes -->
-		<img 
-		    src="<?php echo esc_url($small_image_url); ?>" 
-		    srcset="<?php echo esc_url($small_image_url); ?> 480w, 
-		            <?php echo esc_url($medium_image_url); ?> 768w, 
-		            <?php echo esc_url($large_image_url); ?> 1200w" 
-		    sizes="(max-width: 480px) 480px, 
-		           (max-width: 768px) 768px, 
-		           1200px" 
-		    alt="<?php the_title_attribute(); ?>" 
-		    class="slider-image lazyload" 
-		    loading="lazy">
-	</div>
+			<img 
+				src="<?php echo esc_url($small_image_url); ?>.webp" 
+				srcset="<?php echo esc_url($small_image_url); ?>.webp 480w, 
+						<?php echo esc_url($medium_image_url); ?>.webp 768w, 
+						<?php echo esc_url($large_image_url); ?>.webp 1200w" 
+					sizes="(max-width: 480px) 300px, 
+           			(max-width: 768px) 1024px,
+           			1200px" 
+				alt="<?php the_title_attribute(); ?>" 
+				class="slider-image"/>
+		</div>
+
 		<div class="cv-container image-overlay">
 			<div class="cv-outer">
 				<div class="cv-inner">

@@ -27,9 +27,9 @@
 			<?php else : ?>
 				
 				<?php if ( is_home() || is_front_page() ) : ?>
-				<h1>
+				<h2>
 					<a href="<?php echo esc_url( home_url('/') ); ?>" class="header-logo-a"><?php echo bloginfo( 'title' ); ?></a>
-				</h1>
+				</h2>
 				<?php else : ?>
 				<a href="<?php echo esc_url( home_url('/') ); ?>" class="header-logo-a"><?php echo bloginfo( 'title' ); ?></a>
 				<?php endif; ?>

@@ -5,7 +5,7 @@ Description:	 chicdressing is a child theme of Ashe, created by ChildTheme-Gener
 Author:			 Chic Dressing
 Author URI:		 http://childtheme-generator.com/
 Template:		 ashe
-Version:		 1.0.001
+Version:		 1.0.002
 Text Domain:	 chicdressing
 */
 
@@ -114,7 +114,20 @@ Text Domain:	 chicdressing
 
 
 /*** modifications ***/
-
+p.site-description{
+    display: none;
+}
+.chic-title{
+    font-family:'Kalam';
+    font-size:52px;
+    text-decoration:inherit;
+    text-transform:uppercase;
+    transform:rotate(-2deg);
+    margin:30px 40px;
+    text-align:center;
+    color:#9d4c64!important;
+    line-height:48px
+}
 body .page-content p, .page-content .post-meta .post-date, li .rpwwt-post-categories{
     color: #333333;
 }

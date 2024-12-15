@@ -9,9 +9,10 @@
 	}
 
 	// Blog Grid
+	echo '<h3 id="leblog" class="chic-title">Dernières publications </h3>';
 	echo '<ul class="blog-grid">';
 	// On ajoute un titre à la section blog
-	echo '<h1 id="leblog" class="chic-title">Dernières publications </h1>';
+	
 
 	if ( have_posts() ) :
 
